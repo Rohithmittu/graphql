@@ -1,7 +1,12 @@
+import { users } from "../dummyData/data.js";
+
 const userResolver = {
   Query: {
-    users: () => {
+    users: () => {  
       return users;
+    },
+    user: (_, { userId }) => { // here we can use four tpes-- parent,args,context,info
+      return users.find((user) => user._id === userId);
     },
   },
 
