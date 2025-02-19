@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 
 const userResolver = {
   Mutation: {
-    signUp: async (_, { input }, context) => {
+    signUp: async (_, { input }, context) => {  // (parent, args, context, info)
       try {
         const { username, name, password, gender } = input;
 

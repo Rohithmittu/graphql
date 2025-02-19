@@ -33,3 +33,5 @@ const transactionSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+export default transactionSchema;
