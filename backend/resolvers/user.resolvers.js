@@ -1,9 +1,11 @@
 import { users } from "../dummyData/data.js";
 import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 const userResolver = {
   Mutation: {
-    signUp: async (_, { input }, context) => {  // (parent, args, context, info)
+    signUp: async (_, { input }, context) => {
+      // (parent, args, context, info)
       try {
         const { username, name, password, gender } = input;
 
@@ -40,6 +42,7 @@ const userResolver = {
     login: async (_, { input }, context) => {
       try {
         const { username, password } = input;
+
         if (!username || !password) throw new Error("All fields are required");
         const { user } = await context.authenticate("graphql-local", {
           username,
