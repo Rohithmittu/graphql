@@ -6,6 +6,7 @@ const userTypeDef = `#graphql
         password: String!
         profilePicture: String!
         gender: String!
+        transactions: [Transaction!]
     }
 
     type Query {
@@ -15,7 +16,7 @@ const userTypeDef = `#graphql
 
     type Mutation {
         signUp(input: SignUpInput!): User
-        login(input: SigninInput!) : User
+        login(input: LoginInput!) : User
         logout: LogoutResponse
     }
 
@@ -26,14 +27,11 @@ const userTypeDef = `#graphql
         gender: String!
     }
 
-    input SigninInput{
+    input LoginInput{
         username: String!
         password: String!
-
-
     }
     type LogoutResponse{
-        
         message: String!
     }
 `;
