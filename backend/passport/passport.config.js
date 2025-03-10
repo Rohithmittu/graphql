@@ -18,21 +18,23 @@ export const configurePassport = async () => {
       done(error);
     }
   });
-};
 
-passport.use(
-  new GraphQLLocalStrategy(async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        throw new Error("Invalid username and password");
+  passport.use(
+    new GraphQLLocalStrategy(async (username, password, done) => {
+      try {
+        const user = await User.findOne({ username });
+        if (!user) {
+          throw new Error("Invalid username and password");
+        }
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+          throw new Error("Invalid username and password");
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(error);
       }
-      const validPassword = await bcrypt.compare(password, user.password);
-      if (!validPassword) {
-        throw new Error("Invalid username and password");
-      }
-    } catch (error) {
-      return done(error);
-    }
-  })
-);
+    })
+  );
+};
